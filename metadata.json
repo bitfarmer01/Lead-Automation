@@ -1,0 +1,5 @@
+{
+  "name": "Webhook Scraper Tester",
+  "description": "A visual interface to test webhook URLs with job scraping parameters. Users can fill a form to generate a JSON payload and test their endpoint.",
+  "requestFramePermissions": []
+}
