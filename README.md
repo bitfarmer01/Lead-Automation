@@ -71,18 +71,3 @@ It operates without a traditional build pipeline (like Webpack or Vite). Instead
 
 This approach results in a simple, fast, and dependency-free development setup.
 
-## Running Locally
-
-No installation or build process is required.
-
-1.  Clone or download the repository.
-2.  Serve the project's root directory using a simple local web server.
-
-For example, if you have Python installed, you can run:
-
-```bash
-# For Python 3
-python -m http.server
-```
-
-Then, open `http://localhost:8000` (or the port specified by your server) in your web browser.
