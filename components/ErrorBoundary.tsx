@@ -25,9 +25,9 @@ class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="text-center p-8 bg-red-900/50 border border-red-700 rounded-lg">
-          <h2 className="text-2xl font-bold text-red-300">Something went wrong.</h2>
-          <p className="mt-2 text-red-400">Please refresh the page and try again.</p>
+        <div className="text-center p-8 bg-red-100 border border-red-400 dark:bg-red-900/50 dark:border-red-700 rounded-lg">
+          <h2 className="text-2xl font-bold text-red-800 dark:text-red-300">Something went wrong.</h2>
+          <p className="mt-2 text-red-700 dark:text-red-400">Please refresh the page and try again.</p>
         </div>
       );
     }

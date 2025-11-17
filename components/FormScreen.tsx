@@ -160,30 +160,30 @@ function FormScreen({ entries, setEntries }: FormScreenProps) {
   return (
     <div className="space-y-8">
       {errorMessage && (
-        <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg" role="alert">
+        <div className="bg-red-100 border border-red-400 text-red-700 dark:bg-red-900/50 dark:border-red-700 dark:text-red-300 px-4 py-3 rounded-lg" role="alert">
           <p className="font-bold">Validation Error</p>
           <p>{errorMessage}</p>
         </div>
       )}
 
-      <section className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 backdrop-blur-sm">
-        <h2 className="text-xl font-semibold mb-4 text-slate-100">Saved Configurations</h2>
+      <section className="bg-white dark:bg-slate-800/50 p-6 rounded-lg border border-slate-200 dark:border-slate-700 backdrop-blur-sm">
+        <h2 className="text-xl font-semibold mb-4 text-slate-900 dark:text-slate-100">Saved Configurations</h2>
         <div className="flex flex-col sm:flex-row gap-2 items-center">
             <select 
               value={selectedSetName} 
               onChange={e => handleSelectSet(e.target.value)}
-              className="w-full sm:w-auto flex-grow bg-slate-900 border border-slate-600 rounded-md p-3 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition duration-200"
+              className="w-full sm:w-auto flex-grow bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-md p-3 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition duration-200"
               aria-label="Load a saved configuration"
             >
               <option value="">Load a saved set...</option>
               {savedSets.map(s => <option key={s.name} value={s.name}>{s.name}</option>)}
             </select>
             <div className="flex gap-2 w-full sm:w-auto">
-                <button onClick={handleOpenSaveModal} className="flex-grow flex items-center justify-center gap-2 p-3 bg-slate-700 text-yellow-400 rounded-md hover:bg-slate-600 transition" title="Save current entries">
+                <button onClick={handleOpenSaveModal} className="flex-grow flex items-center justify-center gap-2 p-3 bg-slate-200 text-yellow-600 dark:bg-slate-700 dark:text-yellow-400 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition" title="Save current entries">
                     <SaveIcon className="w-6 h-6" /> Save
                 </button>
                 {selectedSetName && (
-                  <button onClick={handleDeleteSet} className="p-3 text-slate-400 bg-slate-700 rounded-md hover:bg-red-900/50 hover:text-red-400 transition" title="Delete selected set">
+                  <button onClick={handleDeleteSet} className="p-3 text-slate-500 bg-slate-200 dark:text-slate-400 dark:bg-slate-700 rounded-md hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/50 dark:hover:text-red-400 transition" title="Delete selected set">
                     <TrashIcon className="w-6 h-6"/>
                   </button>
                 )}
@@ -191,9 +191,9 @@ function FormScreen({ entries, setEntries }: FormScreenProps) {
           </div>
       </section>
 
-      <section className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 backdrop-blur-sm">
-        <h2 className="text-xl font-semibold mb-4 flex items-center text-slate-100">
-          <span className="bg-yellow-600 text-slate-900 rounded-full h-8 w-8 flex items-center justify-center mr-3 font-bold">1</span>
+      <section className="bg-white dark:bg-slate-800/50 p-6 rounded-lg border border-slate-200 dark:border-slate-700 backdrop-blur-sm">
+        <h2 className="text-xl font-semibold mb-4 flex items-center text-slate-900 dark:text-slate-100">
+          <span className="bg-yellow-500 dark:bg-yellow-600 text-slate-900 rounded-full h-8 w-8 flex items-center justify-center mr-3 font-bold">1</span>
           Configure Scraper Payload
         </h2>
         <div className="space-y-6">
@@ -211,7 +211,7 @@ function FormScreen({ entries, setEntries }: FormScreenProps) {
           ))}
           {entries.length < 5 && (
             <div className="flex justify-center">
-              <button onClick={addEntry} className="bg-slate-700 text-yellow-400 font-semibold px-4 py-2 rounded-md hover:bg-slate-600 transition duration-200">
+              <button onClick={addEntry} className="bg-slate-200 text-yellow-600 dark:bg-slate-700 dark:text-yellow-400 font-semibold px-4 py-2 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition duration-200">
                 + Add Entry
               </button>
             </div>
@@ -222,7 +222,7 @@ function FormScreen({ entries, setEntries }: FormScreenProps) {
       <div className="flex justify-center items-center gap-4 pt-4">
         <button
           onClick={handleOpenSaveModal}
-          className="flex items-center gap-2 bg-slate-700 text-slate-200 font-semibold px-6 py-4 rounded-lg hover:bg-slate-600 transition duration-200"
+          className="flex items-center gap-2 bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-200 font-semibold px-6 py-4 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition duration-200"
           title="Save the current entries as a set"
         >
           <SaveIcon className="w-6 h-6" />
@@ -240,13 +240,13 @@ function FormScreen({ entries, setEntries }: FormScreenProps) {
 
       {showSaveModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50" aria-modal="true" role="dialog">
-            <div className="bg-slate-800 border border-slate-700 rounded-lg shadow-xl max-w-md w-full p-6 text-slate-200">
-                <h2 className="text-2xl font-bold mb-4 text-yellow-400">Save Entry Set</h2>
-                <p className="text-slate-400 mb-4">Save the current set of <span className="font-bold text-yellow-500">{entries.length}</span> {entries.length === 1 ? 'entry' : 'entries'} for future use.</p>
-                <label htmlFor="setName" className="block text-sm font-medium text-slate-400 mb-2">Save as:</label>
-                <input id="setName" type="text" value={newSetName} onChange={(e) => setNewSetName(e.target.value)} placeholder="e.g., Senior Developer Searches" className="w-full bg-slate-900 border border-slate-600 rounded-md p-3 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition duration-200" />
+            <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl max-w-md w-full p-6 text-slate-900 dark:text-slate-200">
+                <h2 className="text-2xl font-bold mb-4 text-yellow-500 dark:text-yellow-400">Save Entry Set</h2>
+                <p className="text-slate-600 dark:text-slate-400 mb-4">Save the current set of <span className="font-bold text-yellow-600 dark:text-yellow-500">{entries.length}</span> {entries.length === 1 ? 'entry' : 'entries'} for future use.</p>
+                <label htmlFor="setName" className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">Save as:</label>
+                <input id="setName" type="text" value={newSetName} onChange={(e) => setNewSetName(e.target.value)} placeholder="e.g., Senior Developer Searches" className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-md p-3 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition duration-200" />
                 <div className="flex justify-end gap-4 mt-6">
-                    <button onClick={() => setShowSaveModal(false)} className="px-4 py-2 rounded-md bg-slate-600 hover:bg-slate-500 transition text-slate-200 font-semibold">Cancel</button>
+                    <button onClick={() => setShowSaveModal(false)} className="px-4 py-2 rounded-md bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-200 font-semibold">Cancel</button>
                     <button onClick={handleConfirmSave} disabled={!newSetName.trim()} className="bg-yellow-500 text-slate-900 font-bold px-4 py-2 rounded-lg hover:bg-yellow-600 transition disabled:opacity-50">
                       {savedSets.some(s => s.name === newSetName.trim()) ? 'Update' : 'Save'}
                     </button>

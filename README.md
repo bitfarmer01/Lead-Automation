@@ -70,4 +70,3 @@ It operates without a traditional build pipeline (like Webpack or Vite). Instead
 -   **CDN-Hosted Dependencies**: All libraries, including React and Tailwind CSS, are loaded from a Content Delivery Network.
 
 This approach results in a simple, fast, and dependency-free development setup.
-
