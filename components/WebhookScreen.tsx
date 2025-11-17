@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Entry } from '../types';
 import { CodeBlock } from './CodeBlock';
-import { SpinnerIcon, TrashIcon, SaveIcon, ArrowLeftIcon } from './icons';
+import { SpinnerIcon, TrashIcon, SaveIcon, ArrowLeftIcon, ChevronDownIcon, ChevronUpIcon } from './icons';
 import { useWebhookTester } from '../hooks/useWebhookTester';
 
 interface WebhookScreenProps {
@@ -43,6 +43,15 @@ function WebhookScreen({ entries }: WebhookScreenProps) {
     handleSelectWebhook,
     handleDeleteSelectedWebhook,
   } = useWebhookTester({ entries });
+
+  const [isResponseExpanded, setIsResponseExpanded] = useState(false);
+
+  useEffect(() => {
+    // When a new response comes in, start with it collapsed.
+    if (response) {
+      setIsResponseExpanded(false);
+    }
+  }, [response]);
 
   return (
     <div className="space-y-8 relative">
@@ -117,21 +126,34 @@ function WebhookScreen({ entries }: WebhookScreenProps) {
       
       {response && (
         <section className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 backdrop-blur-sm space-y-4">
-          <h2 className="text-2xl font-semibold text-slate-100">Response</h2>
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-slate-100">Response</h2>
+            <button 
+                onClick={() => setIsResponseExpanded(!isResponseExpanded)}
+                className="flex items-center gap-2 text-slate-400 hover:text-yellow-400 transition-colors"
+            >
+                {isResponseExpanded ? 'Collapse' : 'Expand Details'}
+                {isResponseExpanded ? <ChevronUpIcon className="w-5 h-5" /> : <ChevronDownIcon className="w-5 h-5" />}
+            </button>
+          </div>
           <div>
             <span className="font-bold text-slate-300">Status:</span>
             <span className={`ml-2 px-3 py-1 rounded-full text-sm font-semibold ${getStatusColor(response.status)}`}>
               {response.status} {response.statusText}
             </span>
           </div>
-          <div>
-            <h3 className="font-semibold text-slate-300 mb-2">Headers</h3>
-            <CodeBlock code={JSON.stringify(response.headers, null, 2)} />
-          </div>
-          <div>
-            <h3 className="font-semibold text-slate-300 mb-2">Body</h3>
-            <CodeBlock code={formatResponseBody(response.body)} />
-          </div>
+          {isResponseExpanded && (
+            <>
+              <div>
+                <h3 className="font-semibold text-slate-300 mb-2">Headers</h3>
+                <CodeBlock code={JSON.stringify(response.headers, null, 2)} />
+              </div>
+              <div>
+                <h3 className="font-semibold text-slate-300 mb-2">Body</h3>
+                <CodeBlock code={formatResponseBody(response.body)} />
+              </div>
+            </>
+          )}
         </section>
       )}
 
